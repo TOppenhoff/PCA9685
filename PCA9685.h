@@ -6,6 +6,8 @@ See PCA9685.pdf datasheet for details
 
 @author	Thomas Oppenhoff
 
+https://github.com/TOppenhoff/PCA9685
+
 Language: C++
 License: GNU Public License
 
@@ -13,6 +15,8 @@ License: GNU Public License
 
 #ifndef __PCA9685_H
 #define __PCA9685_H
+
+//#define PCA9685_SERIAL_DEBUG
 
 #include <stdio.h>
 #include <Arduino.h>
@@ -76,14 +80,16 @@ public:
 	public:
 		Led();
 
-		void read();
 		void write() const;
 
 		uint16_t getValue();
 		void setValue(uint16_t value);
+		void setValueAndWrite(uint16_t value);
 
 		void fullOn();
+		void fullOnAndWrite();
 		void fullOff();
+		void fullOffAndWrite();
 
 	private:
 		void attachParent(PCA9685* parent);
@@ -100,19 +106,24 @@ private:
 public:
 	PCA9685();
 	PCA9685(uint8_t i2cSlaveAdr);
-	PCA9685(uint8_t i2cSlaveAdr, float frequency);
-	PCA9685(uint8_t i2cSlaveAdr, float frequency, uint8_t driveMode);
 	PCA9685(uint8_t i2cSlaveAdr, uint8_t driveMode);
+	PCA9685(uint8_t i2cSlaveAdr, uint8_t driveMode, float frequency);
 
 	Led& getLed(uint8_t pin);
 
+	float getFrequency() const;
+	void setFrequency(float frequency);
+	uint8_t getPreScale() const;
+	void setPreScale(uint8_t preScale);
+	uint8_t getDriveMode() const;
+	void setDriveMode(uint8_t driveMode);
+
 	void setup() const;
-	void readAllLeds();
 	void writeAllLeds() const;
 
 protected:
 
-	void init(uint8_t i2cSlaveAdr, uint8_t prescale, uint8_t driveMode);
+	void init(uint8_t i2cSlaveAdr, uint8_t driveMode, uint8_t prescale);
 
 	void sleep() const;
 	void wakeup() const;
@@ -120,7 +131,6 @@ protected:
 	uint8_t calculatePrescale(float frequency) const;
 
 	void writeLed(const Led& led) const;
-	void readLed(Led& led) const;
 
 	uint8_t read8(uint8_t reg) const;
 	void write8(uint8_t reg, uint8_t value) const;
