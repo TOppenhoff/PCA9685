@@ -16,10 +16,6 @@ License: GNU Public License
 #include <PCA9685.h>
 #include <Wire.h>
 
-#ifdef PCA9685_SERIAL_DEBUG
-#include <Serial.h>
-#endif
-
 #define PCA9685_BASEADR			0x40 // I2C base address
 
 #define PCA9685_MODE1			0x00 // Mode register 1
