@@ -1,6 +1,6 @@
 {
   "name": "PCA9685",
-  "keywords": "pwm, led, controller, i2c",
+  "keywords": "pwm, led, controller, i2c, twi",
   "description": "Library for using PCA9685(PCA) - 16-channel, 12-bit PWM Fm+ I2C-bus LED controller",
   "authors":
   {
